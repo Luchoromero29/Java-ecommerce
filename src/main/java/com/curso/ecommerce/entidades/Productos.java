@@ -1,13 +1,24 @@
 package com.curso.ecommerce.entidades;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "productos") //cambia el nombre de la tabla en la base de datos
 public class Productos {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nombre;
 	private String descripcion;
 	private String imagen;
 	private double precio;
 	private int cantidad;
+	
+	@ManyToOne
+	private Usuario usuario;
+	
+	
 	
 	public Productos() {
 	}
@@ -21,16 +32,14 @@ public class Productos {
 		this.precio = precio;
 		this.cantidad = cantidad;
 	}
+	
+	
 
 	public Integer getId() {
 		return id;
 	}
 
-	@Override
-	public String toString() {
-		return "Productos [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen
-				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
-	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -75,7 +84,19 @@ public class Productos {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	
-	
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@Override
+	public String toString() {
+		return "Productos [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen
+				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+	}
+
 }
