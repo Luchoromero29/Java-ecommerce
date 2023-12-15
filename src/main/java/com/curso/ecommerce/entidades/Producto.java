@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "productos") //cambia el nombre de la tabla en la base de datos
-public class Productos {
+public class Producto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class Productos {
 	
 	
 	
-	public Productos() {
+	public Producto() {
 	}
 
-	public Productos(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad) {
+	public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

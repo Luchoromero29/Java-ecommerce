@@ -18,7 +18,7 @@ public class DetalleOrden {
 	private Orden orden;
 	
 	@ManyToOne
-	private Productos producto;
+	private Producto producto;
 	
 	public DetalleOrden() {
 		// TODO Auto-generated constructor stub
@@ -85,11 +85,11 @@ public class DetalleOrden {
 		this.orden = orden;
 	}
 
-	public Productos getProducto() {
+	public Producto getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Productos producto) {
+	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
 
