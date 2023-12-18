@@ -4,6 +4,7 @@ import org.slf4j.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.curso.ecommerce.entidades.Producto;
 import com.curso.ecommerce.entidades.Usuario;
 import com.curso.ecommerce.servicio.ProductoServicio;
+
+
+
 
 
 @Controller
@@ -25,7 +29,8 @@ public class ProductoControlador {
 	
 	
 	@GetMapping("")
-	public String show() {
+	public String show(Model model ) {
+		model.addAttribute("productos", productoServicio.findAll());
 		return "productos/show";
 	}
 	
