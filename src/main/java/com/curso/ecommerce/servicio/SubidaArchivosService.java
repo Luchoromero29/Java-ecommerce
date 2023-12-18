@@ -27,7 +27,7 @@ public class SubidaArchivosService {
 	
 	//video 15
 	public void deleteImage(String nombre) {
-		String ruta = "image//";
+		String ruta = "images//";
 		File file = new File(ruta + nombre);
 		file.delete();
 	}

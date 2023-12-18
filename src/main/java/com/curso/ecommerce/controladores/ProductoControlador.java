@@ -61,16 +61,7 @@ public class ProductoControlador {
 		if (producto.getId() == null) { //si se crea el producto el id viene null
 			String nombreImagen = upload.saveImage(file);
 			producto.setImagen(nombreImagen);
-		} else {
-			if (file.isEmpty()) { //cuando se edita el producto pero no cambia la imagen
-				Producto p = new Producto();
-				p = productoServicio.get(producto.getId()).get();
-				producto.setImagen(p.getImagen());
-			}else { //se edita el producto y se cambia la imagen
-				String nombreImagen = upload.saveImage(file);
-				producto.setImagen(nombreImagen);
-			}
-		}
+		} 
 		
 		productoServicio.save(producto);
 		return "redirect:/productos";
@@ -90,7 +81,23 @@ public class ProductoControlador {
 	}
 	
 	@PostMapping("/update")
-	public String update(Producto producto) {
+	public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+		
+		Producto p = new Producto();
+		p = productoServicio.get(producto.getId()).get();
+		
+		//video 17
+		if (file.isEmpty()) { //cuando se edita el producto pero no cambia la imagen
+			producto.setImagen(p.getImagen());
+		}else { //se edita el producto y se cambia la imagen
+			//eliminar cuando no sea la imagen por default - video 17
+			if(!p.getImagen().equals("default.jpg")) {
+				upload.deleteImage(p.getImagen());
+			}
+			String nombreImagen = upload.saveImage(file);
+			producto.setImagen(nombreImagen);
+		}
+		producto.setUsuario(p.getUsuario());
 		
 		productoServicio.update(producto);
 		return "redirect:/productos";
@@ -98,6 +105,15 @@ public class ProductoControlador {
 	
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable Integer id) {
+		
+		Producto p = new Producto();
+		p = productoServicio.get(id).get();
+		
+		//eliminar cuando no sea la imagen por default - video 17
+		if(!p.getImagen().equals("default.jpg")) {
+			upload.deleteImage(p.getImagen());
+		}
+		
 		productoServicio.delete(id);
 		return "redirect:/productos";
 	}
