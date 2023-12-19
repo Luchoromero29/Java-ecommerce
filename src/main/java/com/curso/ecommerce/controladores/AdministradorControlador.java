@@ -26,7 +26,7 @@ public class AdministradorControlador {
 		model.addAttribute("productos", productos);
 		
 		//video iniciales
-		return "administrador/home";
+		return "administrador/homeAdmin";
 	}
 	
 	
