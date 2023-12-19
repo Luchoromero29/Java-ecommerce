@@ -1,5 +1,7 @@
 package com.curso.ecommerce.controladores;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,7 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
+import com.curso.ecommerce.entidades.DetalleOrden;
+import com.curso.ecommerce.entidades.Orden;
 import com.curso.ecommerce.entidades.Producto;
 import com.curso.ecommerce.servicio.ProductoServicio;
 
@@ -25,6 +31,12 @@ public class HomeControlador {
 	//video 19
 	@Autowired
 	private ProductoServicio productoServicio;
+	
+	List<DetalleOrden> detalles = new ArrayList<>(); //para almacenar los detalles de la orden - video 24
+	
+	//almacena los datos de la orden - video 24
+	Orden orden = new Orden();
+	
 	
 	
 	//video 19
@@ -47,9 +59,17 @@ public class HomeControlador {
 		
 		return "usuario/productohome";
 	}
-	
+	//video 23
 	@PostMapping("/cart")
-	public String addCart() {
+	public String addCart(@RequestParam Integer id, @RequestParam Integer cantidad) {
+		
+		DetalleOrden detalleOrden = new DetalleOrden();
+		Producto producto = new Producto();
+		double sumaTotal = 0;
+		
+		Optional<Producto> optionalProducto = productoServicio.get(id);
+		LOGGER.info("Producto aniadido: {}", optionalProducto.get());	
+		LOGGER.info("Cantidad: {}", cantidad);
 		return "usuario/carrito";
 	}
 }
