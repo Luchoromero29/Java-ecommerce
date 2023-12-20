@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.ecommerce.entidades.Producto;
-import com.curso.ecommerce.repositorio.ProductoRepositorio;
+import com.curso.ecommerce.repositorio.IProductoRepositorio;
 
 @Service
-public class ProductoServicioImp implements ProductoServicio{
+public class ProductoServicioImp implements IProductoServicio{
 
 	@Autowired
-	private ProductoRepositorio productoRepositorio; 
+	private IProductoRepositorio productoRepositorio; 
 	
 
 	

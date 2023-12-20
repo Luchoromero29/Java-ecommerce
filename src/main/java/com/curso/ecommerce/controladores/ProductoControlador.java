@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.curso.ecommerce.entidades.Producto;
 import com.curso.ecommerce.entidades.Usuario;
-import com.curso.ecommerce.servicio.ProductoServicio;
-import com.curso.ecommerce.servicio.SubidaArchivosService;
+import com.curso.ecommerce.servicio.IProductoServicio;
+import com.curso.ecommerce.servicio.SubidaArchivosServicio;
 
 
 
@@ -32,10 +32,10 @@ public class ProductoControlador {
 	private final Logger LOGGER = LoggerFactory.getLogger(ProductoControlador.class);
 	
 	@Autowired
-	private ProductoServicio productoServicio;
+	private IProductoServicio productoServicio;
 	
 	@Autowired
-	private SubidaArchivosService upload; //video 16
+	private SubidaArchivosServicio upload; //video 16
 	
 	
 	@GetMapping("")

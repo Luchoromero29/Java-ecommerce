@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import com.curso.ecommerce.entidades.DetalleOrden;
 import com.curso.ecommerce.entidades.Orden;
 import com.curso.ecommerce.entidades.Producto;
-import com.curso.ecommerce.servicio.ProductoServicio;
+import com.curso.ecommerce.entidades.Usuario;
+import com.curso.ecommerce.servicio.IProductoServicio;
+import com.curso.ecommerce.servicio.IUsuarioServicio;
 
 @Controller
 @RequestMapping("/")
@@ -29,7 +31,10 @@ public class HomeControlador {
 
 	// video 19
 	@Autowired
-	private ProductoServicio productoServicio;
+	private IProductoServicio productoServicio;
+	
+	@Autowired
+	private IUsuarioServicio usuarioService;
 
 	List<DetalleOrden> detalles = new ArrayList<>(); // para almacenar los detalles de la orden - video 24
 
@@ -84,7 +89,7 @@ public class HomeControlador {
 		if(!ingresado) {
 			detalles.add(detalleOrden);
 		}else {
-			//aumento la cantidad del producto que ya estaba en el carrito
+			//aumento la cantidad del producto que ya estaba en el carrito (se lo agregue yo)
 			for (DetalleOrden dOrden : detalles) {
 				if (dOrden.getProducto().getId() == idProducto) {
 					double sumaCantidades = dOrden.getCantidad() + detalleOrden.getCantidad();
@@ -136,6 +141,7 @@ public class HomeControlador {
 		return "usuario/carrito";
 	}
 	
+	//video 28
 	@GetMapping("/getCart")
 	public String getCart(Model model) {
 		
@@ -145,8 +151,16 @@ public class HomeControlador {
 		return "/usuario/carrito";
 	}
 	
+	//video 29
 	@GetMapping("/orden")
-	public String orden() {
+	public String orden(Model model) {
+		
+		Usuario usuario = usuarioService.findById(1).get();
+		
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		model.addAttribute("usuario", usuario);
+		
 		return "/usuario/resumenorden";
 	}
 }

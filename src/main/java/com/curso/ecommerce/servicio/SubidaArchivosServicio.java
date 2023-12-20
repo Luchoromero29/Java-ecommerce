@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class SubidaArchivosService {
+public class SubidaArchivosServicio {
 
 	private String folder = "images//";
 	
