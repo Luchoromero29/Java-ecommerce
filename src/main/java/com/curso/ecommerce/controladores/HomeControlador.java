@@ -76,8 +76,28 @@ public class HomeControlador {
 		detalleOrden.setNombre(producto.getNombre());
 		detalleOrden.setTotal(producto.getPrecio() * cantidad);
 		detalleOrden.setProducto(producto);
+		
+		//validar producto repetido al aniadir
+		Integer idProducto = producto.getId();
+		boolean ingresado = detalles.stream().anyMatch(p -> p.getProducto().getId() == idProducto);
+		
+		if(!ingresado) {
+			detalles.add(detalleOrden);
+		}else {
+			//aumento la cantidad del producto que ya estaba en el carrito
+			for (DetalleOrden dOrden : detalles) {
+				if (dOrden.getProducto().getId() == idProducto) {
+					double sumaCantidades = dOrden.getCantidad() + detalleOrden.getCantidad();
+					if(sumaCantidades <= 5) {
+						dOrden.setCantidad(sumaCantidades);
+						dOrden.setTotal(dOrden.getCantidad() * dOrden.getPrecio());
+					}
+				}
+			}
+			
+		}
 
-		detalles.add(detalleOrden);
+		
 
 		sumaTotal = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();// calcula el total del carrito
 		orden.setTotal(sumaTotal);
@@ -114,5 +134,14 @@ public class HomeControlador {
 		
 		
 		return "usuario/carrito";
+	}
+	
+	@GetMapping("/getCart")
+	public String getCart(Model model) {
+		
+		model.addAttribute("cart", detalles);
+		model.addAttribute("orden", orden);
+		
+		return "/usuario/carrito";
 	}
 }
