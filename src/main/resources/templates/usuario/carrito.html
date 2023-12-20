@@ -60,7 +60,7 @@
 									<td th:text="${detalleOrden.precio}"></td>
 									<td th:text="${detalleOrden.cantidad}"></td>
 									<td th:text="${detalleOrden.total}"></td>
-									<td><a href="#" class="btn btn-danger">Quitar</a></td>
+									<td><a th:href="@{/delete/cart/{id} (id = ${detalleOrden.producto.id}) }" class="btn btn-danger">Quitar</a></td>
 								</tr>
 							</tbody>
 						</table>
