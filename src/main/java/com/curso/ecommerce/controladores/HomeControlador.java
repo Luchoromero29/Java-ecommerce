@@ -144,4 +144,9 @@ public class HomeControlador {
 		
 		return "/usuario/carrito";
 	}
+	
+	@GetMapping("/orden")
+	public String orden() {
+		return "/usuario/resumenorden";
+	}
 }
